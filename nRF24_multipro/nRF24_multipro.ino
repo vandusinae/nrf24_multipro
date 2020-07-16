@@ -104,6 +104,7 @@ enum {
     PROTO_FQ777124,     // FQ777-124 pocket drone
     PROTO_E010,         // EAchine E010, NiHui NH-010, JJRC H36 mini
     PROTO_BAYANG_SILVERWARE, // Bayang for Silverware with frsky telemetry
+    PROTO_XK_nrf24l01, // xk test
     PROTO_END
 };
 
@@ -209,6 +210,9 @@ void loop()
         case PROTO_FQ777124:
             timeout = process_FQ777124();
             break;
+        case PROTO_XK_nrf24l01:
+            timeout = process_V2x2();
+            break;        
     }
     // updates ppm values out of ISR
     update_ppm();
