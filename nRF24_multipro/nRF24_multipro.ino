@@ -104,7 +104,7 @@ enum {
     PROTO_FQ777124,     // FQ777-124 pocket drone
     PROTO_E010,         // EAchine E010, NiHui NH-010, JJRC H36 mini
     PROTO_BAYANG_SILVERWARE, // Bayang for Silverware with frsky telemetry
-    PROTO_XK_nrf24l01 = 0, // xk test
+    PROTO_XK = 0, // xk test,  orig goebish 2x2
     PROTO_END
 };
 
@@ -176,6 +176,9 @@ void loop()
         case PROTO_V2X2:
             timeout = process_V2x2();
             break;
+        case PROTO_XK: // goebish, points to cloned "V2x2.ico" -> xk.ico
+            timeout = process_V2x2(); 
+            break; 
         case PROTO_CX10_GREEN:
         case PROTO_CX10_BLUE:
             timeout = process_CX10();
@@ -209,10 +212,7 @@ void loop()
             break;
         case PROTO_FQ777124:
             timeout = process_FQ777124();
-            break;
-        case PROTO_XK_nrf24l01: // probably the same as 2x2, if available
-            timeout = process_V2x2(); 
-            break;        
+            break;     
     }
     // updates ppm values out of ISR
     update_ppm();
@@ -313,7 +313,7 @@ void selectProtocol()
         
     // Elevator down
     else if(ppm[ELEVATOR] < PPM_MIN_COMMAND) 
-        current_protocol = PROTO_V2X2;      // xk pre test, PROTO_V2X2; 
+        current_protocol = PROTO_XK;      // xk pre test, PROTO_V2X2 clone; 
     
     // Aileron right
     else if(ppm[AILERON] > PPM_MAX_COMMAND)  
@@ -347,6 +347,10 @@ void init_protocol()
             V2x2_init();
             V2x2_bind();
             break;
+        case PROTO_XK:
+            V2x2_init(); // next test
+            V2x2_bind();
+            break;            
         case PROTO_CX10_GREEN:
         case PROTO_CX10_BLUE:
             CX10_init();
