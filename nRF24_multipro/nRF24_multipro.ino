@@ -313,7 +313,7 @@ void selectProtocol()
         
     // Elevator down
     else if(ppm[ELEVATOR] < PPM_MIN_COMMAND) 
-        current_protocol = PROTO_XK;      // xk pre test, PROTO_V2X2 clone; 
+        current_protocol = PROTO_XK;      // xk pre test, v2x2.ico clone; 
     
     // Aileron right
     else if(ppm[AILERON] > PPM_MAX_COMMAND)  
